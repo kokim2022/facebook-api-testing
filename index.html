@@ -60,7 +60,7 @@
 
   function getPageListing (accountId) {
     FB.api(`${accountId}/accounts?fields=name,access_token,picture`, function(response) {
-      console.log('page listing' + response.data[0]);
+      console.log('page listing' + response);
     });
   }
 
