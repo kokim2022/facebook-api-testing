@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 </head>
 <body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script>
 
   function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
@@ -43,6 +44,7 @@
   function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response) {
+      window.authUser = response
       console.log('Successful login for: ' + response.name);
       document.getElementById('status').innerHTML =
         'Thanks for logging in, ' + response.name + '!';
@@ -60,8 +62,19 @@
  
 <div id="status">
 </div>
+<div id="app">
+  {{ message }}
+</div>
 
 <!-- Load the JS SDK asynchronously -->
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      message: window.authUser
+    }
+  })
+</script>
 </body>
 </html>
