@@ -49,6 +49,14 @@
     });
   }
 
+  function logOut () {
+    FB.logout(function(response) {
+      console.log(response)
+      console.log("logout")
+      // user is now logged out
+    });
+  }
+
 </script>
 
 
@@ -57,6 +65,9 @@
 <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button>
 <!-- / -->
+
+<button onclick="logOut()">Logout</button>
+
  
 <div id="status">
 </div>
