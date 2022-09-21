@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 </head>
 <body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script>
 
   function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
@@ -43,24 +44,10 @@
   function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response) {
-      console.log('Successful login for: ' + response.id);
+      window.authUser = response
+      console.log('Successful login for: ' + response.name);
       document.getElementById('status').innerHTML =
         'Thanks for logging in, ' + response.name + '!';
-        getPageListing(response.id)
-    });
-  }
-
-  function logOut () {
-    FB.logout(function(response) {
-      console.log(response)
-      console.log("logout")
-      // user is now logged out
-    });
-  }
-
-  function getPageListing (accountId) {
-    FB.api(`${accountId}/accounts?fields=name,access_token,picture`, function(response) {
-      console.log('page listing' + response);
     });
   }
 
@@ -69,17 +56,15 @@
 
 <!-- The JS SDK Login Button -->
 
-<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+<fb:login-button scope="public_profile,email, pages_show_list, pages_messaging, pages_manage_metadata, pages_read_engagement" onlogin="checkLoginState();">
 </fb:login-button>
 <!-- / -->
-
-<button onclick="logOut()">Logout</button>
-
  
 <div id="status">
 </div>
 
 <!-- Load the JS SDK asynchronously -->
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
 </body>
 </html>
